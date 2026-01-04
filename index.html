@@ -30,6 +30,7 @@
                         'blob': 'blob 7s infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
                     },
                     keyframes: {
                         blob: {
@@ -40,7 +41,7 @@
                         },
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '50%': { transform: 'translateY(-25px)' },
                         }
                     }
                 }
@@ -106,50 +107,57 @@
             font-family: 'Roboto Mono', monospace;
         }
         
-        .modal-scroll::-webkit-scrollbar {
-            width: 8px;
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .modal-scroll::-webkit-scrollbar-track {
-            background: #0f172a; 
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
         }
-        .modal-scroll::-webkit-scrollbar-thumb {
-            background: #475569; 
-            border-radius: 4px;
+        .faq-item.active .faq-answer {
+            max-height: 200px;
         }
-        .modal-scroll::-webkit-scrollbar-thumb:hover {
-            background: #64748b; 
+        .faq-item.active i {
+            transform: rotate(180deg);
         }
     </style>
 </head>
 <body class="antialiased font-sans">
 
-    <!-- Background Decoration -->
+    <!-- Декорация фона -->
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-purple opacity-20 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
         <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-cyan opacity-20 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
         <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-brand-pink opacity-20 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Шапка -->
     <nav class="fixed w-full z-50 glass border-b-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-center h-16">
+            <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0 font-bold text-2xl tracking-wider">
-                    <span class="text-brand-cyan">AI</span> <span class="text-white">Gamesio</span>
+                    <a href="index.html"><span class="text-brand-cyan">AI</span> <span class="text-white">Gamesio</span></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-gray-400">
+                        <a href="#benefits" class="hover:text-white transition">Преимущества</a>
+                        <a href="#faq" class="hover:text-white transition">FAQ</a>
+                        <a href="#examples" class="hover:text-white transition text-brand-cyan">Портал онлайн игр</a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Начальный блок -->
     <section class="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden hero-grid">
-        <div id="spotlight" class="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-500" 
-             style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(124, 58, 237, 0.15), transparent 80%);">
+        <div id="spotlight" class="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-500" style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(124, 58, 237, 0.15), transparent 80%); --x: 1256px; --y: 738px;">
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col items-center text-center">
-                <div class="reveal mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-brand-cyan uppercase tracking-widest">
+                <div class="reveal mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-brand-cyan uppercase tracking-widest active">
                     <span class="relative flex h-2 w-2">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan"></span>
@@ -157,17 +165,17 @@
                     Next-Gen AI Gaming Economy
                 </div>
 
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter mb-8 reveal leading-[1.1]">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter mb-8 reveal leading-[1.1] active">
                     Преврати Промпт<br>
                     <span class="text-gradient">в Реальный Доход</span>
                 </h1>
                 
-                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed reveal delay-100 mb-10">
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed reveal delay-100 mb-10 active">
                     Мы выкупаем браузерные игры, созданные нейросетями за считанные минуты. 
                     <span class="text-white font-semibold">Твоя идея — наша монетизация.</span>
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-4 reveal delay-200">
+                <div class="flex flex-col sm:flex-row gap-4 reveal delay-200 active">
                     <a href="https://t.me/aigameesio?direct" target="_blank" class="bg-brand-purple hover:bg-brand-purple/80 text-white px-10 py-4 rounded-xl font-bold transition-all transform hover:scale-105 flex items-center justify-center gap-3 shadow-xl shadow-brand-purple/20">
                         <i class="fab fa-telegram-plane text-xl"></i> Начать зарабатывать
                     </a>
@@ -176,7 +184,7 @@
                     </a>
                 </div>
 
-                <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12 reveal delay-300">
+                <div class="mt-16 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-12 reveal delay-300 active">
                     <div class="text-center px-4">
                         <div class="text-2xl md:text-3xl font-bold text-white mb-1">~5 мин</div>
                         <div class="text-xs text-gray-500 font-mono uppercase">На создание игры</div>
@@ -194,53 +202,44 @@
         </div>
     </section>
 
-    <!-- Examples Section -->
-    <section id="examples" class="py-20 bg-black/20">
+    <!-- Блок с преимуществами> -->
+    <section id="benefits" class="py-24 relative z-10 border-y border-white/5 bg-brand-dark/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl font-bold text-white mb-2 text-center uppercase tracking-wider">Примеры игр исполнителей</h2>
-                <div class="h-1 w-20 bg-brand-cyan mx-auto rounded"></div>
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-extrabold text-white mb-4 uppercase tracking-tighter">Почему <span class="text-brand-cyan text-gradient">это выгодно</span>?</h2>
+                <p class="text-gray-400">Рынок гипер-казуальных игр растет, и нейросети — ключ к этому росту.</p>
             </div>
-
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card rounded-2xl overflow-hidden reveal delay-100 group">
-                    <div class="h-48 bg-gray-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1599553748232-a5e622b781da?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent"></div>
+                <div class="glass-card p-8 rounded-3xl reveal delay-100">
+                    <div class="w-12 h-12 bg-brand-cyan/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-rocket text-brand-cyan text-xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-1">Rio Kingdom 2</h3>
-                        <p class="text-brand-cyan text-sm font-mono">10 минут за 1 промпт</p>
-                    </div>
+                    <h3 class="text-xl font-bold mb-4">Мгновенный результат</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Вы создаете игру за 5-10 минут. Это быстрее, чем выпить чашку кофе. Высокая оборачиваемость — больше доход.</p>
                 </div>
-                <div class="glass-card rounded-2xl overflow-hidden reveal delay-200 group">
-                    <div class="h-48 bg-gray-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1516481265257-97e5f4bc50d5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent"></div>
+                <div class="glass-card p-8 rounded-3xl reveal delay-200">
+                    <div class="w-12 h-12 bg-brand-purple/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-brand-purple text-xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-1">Aio Duck Road</h3>
-                        <p class="text-brand-cyan text-sm font-mono">3 минуты за 1 промпт</p>
-                    </div>
+                    <h3 class="text-xl font-bold mb-4">Работа из любой точки</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Вам нужен только браузер и промпт. Работайте дома, в кафе или в пути. Полная свобода действий.</p>
                 </div>
-                <div class="glass-card rounded-2xl overflow-hidden reveal delay-300 group">
-                    <div class="h-48 bg-gray-800 relative overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark to-transparent"></div>
+                <div class="glass-card p-8 rounded-3xl reveal delay-300">
+                    <div class="w-12 h-12 bg-brand-pink/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-brand-pink text-xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-1">Aio Match 3</h3>
-                        <p class="text-brand-cyan text-sm font-mono">2 минуты за 1 промпт</p>
-                    </div>
+                    <h3 class="text-xl font-bold mb-4">Пассивный потенциал</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Набив руку, вы сможете генерировать десятки игр в неделю. Мы выкупаем лучшие из них стабильно.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Content Section -->
-    <section id="start" class="py-24 relative overflow-hidden">
+    <!-- Главная секция контента -->
+    <section id="start" class="py-32 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div class="reveal">
                     <h2 class="text-4xl font-extrabold mb-8 text-white uppercase tracking-tight">Начните уже сегодня!</h2>
                     <div class="space-y-6 text-gray-300 leading-relaxed text-lg">
@@ -279,10 +278,93 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Блок с вопросами -->
+    <section id="faq" class="py-24">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-extrabold text-white mb-4 uppercase tracking-tighter">Частые вопросы</h2>
+                <div class="h-1 w-20 bg-brand-purple mx-auto rounded"></div>
+            </div>
+
+            <div class="space-y-4 reveal">
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-white">Нужно ли уметь программировать?</h4>
+                        <i class="fas fa-chevron-down text-brand-cyan transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm">
+                        Нет! Вся суть нашего проекта в том, что код пишет ИИ. Вам нужно лишь правильно сформулировать задачу и проверить, чтобы игра работала в браузере.
+                    </div>
+                </div>
+
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-white">Какие нейросети лучше использовать?</h4>
+                        <i class="fas fa-chevron-down text-brand-cyan transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm">
+                        Мы рекомендуем ChatGPT (версии 4o или o1), Claude 3.5 Sonnet или DeepSeek V3. Они лучше всего справляются с написанием чистого HTML5/JS кода.
+                    </div>
+                </div>
+
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-white">Как быстро я получу первую выплату?</h4>
+                        <i class="fas fa-chevron-down text-brand-cyan transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm">
+                        После того как вы отправите игру и она пройдет проверку, мы передаем ее издателю. Средний цикл выплат составляет до 2 месяцев, так как это связано с отчетностью игровых платформ.
+                    </div>
+                </div>
+
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-white">Сколько игр можно отправлять?</h4>
+                        <i class="fas fa-chevron-down text-brand-cyan transition-transform"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400 text-sm">
+                        Количество не ограничено! Вы можете создавать и отправлять столько игр, сколько успеете. Главное - чтобы каждая игра была уникальной и соответствовала нашим техническим требованиям.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Финальный призыв к действию -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+
+            <!-- Заголовок -->
+            <h2 class="text-4xl md:text-5xl font-bold leading-relaxed reveal delay-100 text-white mb-6 reveal">
+                Готовы превратить вашу идею в реальность?
+            </h2>
+            
+            <!-- Подзаголовок -->
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed reveal delay-100">
+                Присоединяйтесь к сообществу разработчиков, которые уже создают и монетизируют игры с помощью AI
+            </p>
+        
+            <!-- Основная кнопка -->
+            <a href="https://t.me/aigameesio?direct" target="_blank" class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-brand-purple to-purple-600 hover:from-purple-600 hover:to-brand-purple text-white font-bold text-lg px-12 py-4 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 reveal delay-200 mb-16 animate-pulse">
+                <i class="fab fa-telegram-plane text-xl"></i>Начать сотрудничество
+            </a>
+            
+            <!-- Дополнительная информация -->
+            <div class="text-gray-500 text-sm max-w-xl mx-auto reveal delay-300">
+                <p class="mb-2">
+                    <i class="fas fa-clock mr-2"></i>Средний ответ: 15-30 минут
+                </p>
+                <p>
+                    <i class="fas fa-users mr-2"></i>Уже сотрудничают: 30+ разработчиков
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал сайта -->
     <footer class="py-20 border-t border-white/5 bg-brand-dark/50">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-8 uppercase tracking-widest"><span class="text-brand-cyan">AI</span> Gamesio</h2>
+            <h2 class="text-3xl font-bold mb-8 uppercase tracking-widest"><a href="index.html"><span class="text-brand-cyan">AI</span> Gamesio</a></h2>
             <div class="flex flex-col items-center gap-4 mb-12">
                 <a href="mailto:umelyjprogrammist@gmail.com" class="text-gray-400 hover:text-white transition flex items-center gap-3 text-lg">
                     <i class="fas fa-envelope text-brand-cyan"></i> umelyjprogrammist@gmail.com
@@ -291,172 +373,144 @@
                     <i class="fab fa-telegram text-brand-purple"></i> @aigameesio
                 </a>
             </div>
-            <div class="text-[10px] text-gray-700 font-mono tracking-widest">
-                &copy; 2026 AI Gamesio.
+            <div class="text-[10px] text-gray-600 font-mono tracking-widest">
+                &copy; AI Gamesio 2026<br>Открытый проект для AI-разработчиков
             </div>
         </div>
     </footer>
 
-    <!-- Policy Modal -->
+    <!-- Политика выплат модальное окно -->
     <div id="policyModal" class="fixed inset-0 z-[100] hidden">
-        <div class="absolute inset-0 bg-brand-dark/95 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl px-4">
-            <div class="bg-[#1e293b] border border-white/10 rounded-3xl shadow-[0_0_50px_-12px_rgba(124,58,237,0.3)] overflow-hidden flex flex-col max-h-[90vh]">
-                <!-- Modal Header -->
-                <div class="p-6 border-b border-white/5 flex justify-between items-center bg-[#1e293b] sticky top-0 z-10">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-4">
+            <div class="bg-[#1e293b] border border-gray-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+                <div class="p-5 border-b border-gray-700 flex justify-between items-center bg-[#1e293b] sticky top-0 z-10">
                     <div>
-                        <h3 class="text-2xl font-extrabold text-white tracking-tight uppercase">Политика сотрудничества и выплат</h3>
-                        <p class="text-[10px] text-brand-purple font-mono mt-1 uppercase tracking-widest">Версия 1.3 | Сроки оплаты | Проверка качества | Тарификация</p>
+                        <h3 class="text-xl font-bold text-white tracking-wide">ПОЛИТИКА СОТРУДНИЧЕСТВА И ВЫПЛАТ</h3>
+                        <p class="text-xs text-brand-purple mt-1">Версия 1.3 (Обновлено: Сроки оплаты, Проверка качества, Тарификация)</p>
                     </div>
-                    <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-all border border-white/5">
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-white transition bg-white/5 rounded-full p-2 w-8 h-8 flex items-center justify-center hover:bg-white/10">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 
-                <!-- Modal Body -->
-                <div class="p-8 overflow-y-auto modal-scroll text-gray-300 leading-relaxed text-sm space-y-10">
-                    
-                    <!-- 1. Formats -->
-                    <section>
-                        <h4 class="text-brand-cyan font-bold uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <span class="w-8 h-[2px] bg-brand-cyan"></span> 1. Форматы работы и Тарификация
-                        </h4>
-                        <p class="mb-6 text-gray-400">Сумма оплаты складывается от объема выполненной Разработчиком работы. Ставки могут быть пересмотрены Организатором.</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="stat-badge p-5 rounded-2xl">
-                                <div class="flex justify-between items-start mb-4">
-                                    <span class="text-xs font-mono uppercase text-gray-500">Тариф А</span>
-                                    <span class="text-brand-cyan font-bold">200 ₽</span>
+                <div class="p-6 overflow-y-auto modal-scroll text-gray-300 leading-relaxed text-sm space-y-6">
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">1. Форматы работы и Тарификация</h4>
+                        <p class="text-gray-400 mb-3 text-xs"><em>Обратите внимание: указанные ниже ставки являются текущими и могут быть пересмотрены Организатором. Актуальные ставки всегда будут опубликованы в последней версии этого документа.</em></p>
+                        <div class="grid gap-3">
+                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
+                                <div class="flex justify-between items-start mb-2">
+                                    <strong class="text-white text-base">Тариф А: Игра низкого качества (Без сборки)</strong>
+                                    <span class="bg-gray-700 text-white px-2 py-0.5 rounded text-xs">200 ₽</span>
                                 </div>
-                                <h5 class="text-white font-bold mb-2">Низкое качество (Без сборки)</h5>
-                                <p class="text-[11px] text-gray-400">Генерация, проверка работоспособности, отправка файлов. Сборку делает Организатор.</p>
-                            </div>
-
-                            <div class="stat-badge p-5 rounded-2xl border-brand-purple/40">
-                                <div class="flex justify-between items-start mb-4">
-                                    <span class="text-xs font-mono uppercase text-gray-500">Тариф Б</span>
-                                    <span class="text-brand-purple font-bold">400 ₽</span>
-                                </div>
-                                <h5 class="text-white font-bold mb-2">Высокое качество (Без сборки)</h5>
-                                <p class="text-[11px] text-gray-400">Генерация качественной игры, проверка, отправка файлов. Сборку делает Организатор.</p>
-                            </div>
-
-                            <div class="stat-badge p-5 rounded-2xl">
-                                <div class="flex justify-between items-start mb-4">
-                                    <span class="text-xs font-mono uppercase text-gray-500">Тариф В</span>
-                                    <span class="text-brand-cyan font-bold">500 ₽</span>
-                                </div>
-                                <h5 class="text-white font-bold mb-2">Низкое качество (Со сборкой)</h5>
-                                <p class="text-[11px] text-gray-400">Генерация игры и полная сборка по техническому регламенту (200 + 300 руб).</p>
-                            </div>
-
-                            <div class="bg-gradient-to-br from-brand-purple/20 to-brand-pink/20 border border-brand-pink/30 p-5 rounded-2xl">
-                                <div class="flex justify-between items-start mb-4">
-                                    <span class="text-xs font-mono uppercase text-brand-pink">Тариф Г</span>
-                                    <span class="text-brand-pink font-bold">700 ₽</span>
-                                </div>
-                                <h5 class="text-white font-bold mb-2">Высокое качество (Со сборкой)</h5>
-                                <p class="text-[11px] text-gray-200 font-medium">Генерация качественной игры и полная сборка по тех. регламенту (400 + 300 руб).</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- 2. Criteria -->
-                    <section>
-                        <h4 class="text-brand-cyan font-bold uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <span class="w-8 h-[2px] bg-brand-cyan"></span> 2. Критерии Приемки и Контент-Политика
-                        </h4>
-                        <div class="bg-red-500/5 border border-red-500/20 p-6 rounded-2xl mb-6">
-                            <strong class="text-red-400 block mb-4 uppercase text-xs tracking-wider">Категорически запрещено (Safety):</strong>
-                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-[13px]">
-                                <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Кровавые сцены / Расчленение</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Сексуальный контент (18+)</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Нецензурная лексика / Оскорбления</li>
-                                <li class="flex items-center gap-2"><i class="fas fa-times text-red-500"></i> Пропаганда веществ / Незаконность</li>
-                            </ul>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-[13px]">
-                            <div>
-                                <strong class="text-white block mb-2 underline decoration-brand-cyan uppercase tracking-tighter">Технические требования:</strong>
-                                <ul class="space-y-2 list-disc list-inside text-gray-400">
-                                    <li>Движок: строго HTML5</li>
-                                    <li>Работоспособность: отсутствие зависаний, работа всех кнопок</li>
+                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
+                                    <li>Разработчик: генерирует игру, проверяет работоспособность, отправляет файлы.</li>
+                                    <li>Сборку делает Организатор.</li>
                                 </ul>
                             </div>
-                            <div>
-                                <strong class="text-white block mb-2 underline decoration-brand-cyan uppercase tracking-tighter">Язык:</strong>
-                                <p class="text-gray-400">Весь текст (интерфейс, заголовки, названия) должен быть на <strong>Английском языке</strong>.</p>
+                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
+                                <div class="flex justify-between items-start mb-2">
+                                    <strong class="text-white text-base">Тариф Б: Игра высокого качества (Без сборки)</strong>
+                                    <span class="bg-brand-purple/20 text-brand-purple border border-brand-purple/30 px-2 py-0.5 rounded text-xs">400 ₽</span>
+                                </div>
+                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
+                                    <li>Разработчик: генерирует качественную игру, проверяет работоспособность, отправляет файлы.</li>
+                                    <li>Сборку делает Организатор.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
+                                <div class="flex justify-between items-start mb-2">
+                                    <strong class="text-white text-base">Тариф В: Игра низкого качества (Со сборкой)</strong>
+                                    <span class="bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30 px-2 py-0.5 rounded text-xs">500 ₽</span>
+                                </div>
+                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
+                                    <li>Разработчик: генерирует игру и производит полную сборку по техническому регламенту.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gradient-to-r from-brand-purple/10 to-brand-pink/10 p-4 rounded-lg border border-brand-purple/30">
+                                <div class="flex justify-between items-start mb-2">
+                                    <strong class="text-white text-base">Тариф Г: Игра высокого качества (Со сборкой)</strong>
+                                    <span class="bg-brand-pink text-white px-2 py-0.5 rounded text-xs font-bold">700 ₽</span>
+                                </div>
+                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
+                                    <li>Разработчик: генерирует качественную игру и производит полную сборку по техническому регламенту.</li>
+                                </ul>
                             </div>
                         </div>
-                    </section>
+                    </div>
 
-                    <!-- 3. Acceptance -->
-                    <section>
-                        <h4 class="text-brand-cyan font-bold uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <span class="w-8 h-[2px] bg-brand-cyan"></span> 3. Порядок приемки и Риски
-                        </h4>
-                        <div class="space-y-4">
-                            <div class="flex gap-4 p-4 bg-white/5 rounded-xl">
-                                <i class="fas fa-search-dollar text-brand-purple text-xl mt-1"></i>
-                                <div>
-                                    <strong class="text-white block mb-1">Проверка качества:</strong>
-                                    <p class="text-[13px] text-gray-400">Организатор определяет категорию качества на свое усмотрение и может вернуть игру на доработку.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4 p-4 bg-yellow-500/5 border border-yellow-500/10 rounded-xl">
-                                <i class="fas fa-exclamation-triangle text-yellow-500 text-xl mt-1"></i>
-                                <div>
-                                    <strong class="text-white block mb-1">Условие выплаты:</strong>
-                                    <p class="text-[13px] text-gray-400">Оплата производится <strong>только</strong> в случае успешной продажи игры Издателю. Статистика выкупа: ~9 из 10 игр. В случае отказа Издателя оплата Разработчику не производится.</p>
-                                </div>
-                            </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">2. Критерии Приемки Игры и Контент-Политика</h4>
+                        <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-lg mb-3">
+                            <strong class="text-red-400 block mb-2"><i class="fas fa-ban mr-2"></i>Контент-Политика (Safety) — ЗАПРЕЩЕНО:</strong>
+                            <ul class="list-disc list-inside space-y-1 text-gray-300 text-xs">
+                                <li>Кровавые сцены или расчленение.</li>
+                                <li>Сексуальный контент для взрослых (18+).</li>
+                                <li>Нецензурная лексика, мат и оскорбления.</li>
+                                <li>Пропаганда запрещенных веществ или незаконной деятельности.</li>
+                            </ul>
                         </div>
-                    </section>
+                        <div class="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg mb-3">
+                            <strong class="text-blue-400 block mb-2"><i class="fas fa-cogs mr-2"></i>Технические Требования:</strong>
+                            <ul class="list-disc list-inside space-y-1 text-gray-300 text-xs">
+                                <li>Игра должна быть полностью работоспособной на движке <strong>HTML5</strong>.</li>
+                                <li>Игра должна быть полностью играбельной (без зависаний, рабочие кнопки).</li>
+                            </ul>
+                        </div>
+                        <p class="mt-3"><strong>Язык:</strong> Весь игровой текст, включая интерфейс, заголовки и названия, должен быть выполнен строго на <span class="text-brand-cyan">Английском языке</span>.</p>
+                    </div>
 
-                    <!-- 4. Terms -->
-                    <section>
-                        <h4 class="text-brand-cyan font-bold uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <span class="w-8 h-[2px] bg-brand-cyan"></span> 4. Сроки оплаты
-                        </h4>
-                        <p class="text-[13px]">Выплата производится после получения средств от Издателя.</p>
-                        <ul class="mt-4 space-y-2 text-[13px] text-gray-400">
-                            <li>• <strong>Стандартный срок:</strong> В течение 2-х месяцев с момента приемки Издателем.</li>
-                            <li>• Игры низкого качества могут иметь более длительный срок ожидания.</li>
-                            <li>• Способ оплаты: Карта или иной согласованный метод.</li>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">3. Порядок приемки и Риски (Важно)</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-clipboard-check text-yellow-500 mt-1"></i>
+                                <span><strong>Проверка качества:</strong> Организатор определяет категорию качества (низкое/высокое) на свое усмотрение и может вернуть игру на доработку.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
+                                <span><strong>Условие выплаты:</strong> Оплата производится <strong>только</strong> в случае успешной продажи игры Издателю. Статистика: Издатель выкупает примерно 9 из 10 игр. Если игра отклонена Издателем, оплата не производится.</span>
+                            </li>
                         </ul>
-                    </section>
+                    </div>
 
-                    <!-- 5. IP -->
-                    <section>
-                        <h4 class="text-brand-cyan font-bold uppercase tracking-widest mb-6 flex items-center gap-3">
-                            <span class="w-8 h-[2px] bg-brand-cyan"></span> 5. Авторские права и Конфиденциальность
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-[13px]">
-                            <div class="p-4 border border-white/5 rounded-xl">
-                                <strong class="text-white block mb-2 uppercase tracking-tighter">Отчуждение прав:</strong>
-                                <p class="text-gray-400">В момент передачи файлов все исключительные авторские и смежные права переходят Организатору в полном объеме.</p>
-                            </div>
-                            <div class="p-4 border border-white/5 rounded-xl">
-                                <strong class="text-white block mb-2 uppercase tracking-tighter">Запрет на использование:</strong>
-                                <p class="text-gray-400">Запрещено продавать игру третьим лицам, выкладывать в открытый доступ или портфолио, использовать код в других проектах.</p>
-                            </div>
-                        </div>
-                        <p class="mt-4 text-center text-brand-cyan italic">Разработчик гарантирует уникальность каждой генерации.</p>
-                    </section>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">4. Сроки оплаты</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><strong>Стандартный срок:</strong> В течение <u>2-х месяцев</u> с момента приемки игры Издателем.</li>
+                            <li><strong>Особенности:</strong> Игры низкого качества могут иметь более длительный срок ожидания и повышенный риск невыкупа (в этом случае оплата не производится).</li>
+                            <li>Оплата переводится на карту или иным согласованным способом.</li>
+                        </ul>
+                    </div>
 
-                    <!-- 6. Agreement -->
-                    <section class="text-center pt-6 border-t border-white/5">
-                        <p class="text-lg font-bold text-white uppercase tracking-widest">Факт отправки игры означает полное согласие с данными правилами.</p>
-                    </section>
+                    <div>
+                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">5. Авторские права и Конфиденциальность</h4>
+                        <ul class="space-y-3 text-gray-300 text-xs">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-gavel text-purple-500 mt-1"></i>
+                                <span><strong>Отчуждение прав:</strong> В момент передачи файлов все исключительные авторские и смежные права на контент переходят к Организатору в полном объеме.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-lock text-red-500 mt-1"></i>
+                                <span><strong>Запрет на использование:</strong> После передачи Разработчик не имеет права продавать игру третьим лицам, выкладывать в открытый доступ или портфолио без разрешения, использовать код/ассеты в других проектах.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-certificate text-green-500 mt-1"></i>
+                                <span><strong>Гарантия уникальности:</strong> Разработчик гарантирует, что игра является новой генерацией и ранее не была продана.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-lg">
+                        <h4 class="text-lg font-bold text-yellow-400 mb-2 border-l-4 border-yellow-400 pl-3">6. Согласие с правилами</h4>
+                        <p class="text-gray-300 text-xs">Факт отправки файлов с игрой или сборкой означает, что вы внимательно ознакомились с данным документом, полностью согласны с тарифами, рисками невыплаты (в случае отказа Издателя) и передачей авторских прав.</p>
+                    </div>
 
                 </div>
-                
-                <!-- Modal Footer -->
-                <div class="p-6 border-t border-white/5 bg-[#0f172a] flex justify-end items-center gap-6">
-                    <span class="text-[10px] text-gray-500 font-mono hidden sm:block uppercase">AI Gamesio Document Ref: V1.3-2026</span>
-                    <button onclick="closeModal()" class="bg-brand-purple hover:bg-brand-purple/80 text-white px-10 py-3 rounded-xl transition-all shadow-lg shadow-brand-purple/20 font-bold uppercase tracking-widest text-xs">
-                        Я ознакомился
+                <div class="p-4 border-t border-gray-700 bg-[#0f172a] flex justify-end">
+                    <button onclick="closeModal()" class="bg-brand-purple hover:bg-brand-purple/80 text-white px-6 py-2 rounded transition font-medium">
+                        Я ознакомился и согласен
                     </button>
                 </div>
             </div>
@@ -482,7 +536,10 @@
             modal.classList.add('hidden');
             document.body.style.overflow = '';
         }
-        document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeModal(); });
+
+        function toggleFaq(el) {
+            el.classList.toggle('active');
+        }
 
         const spotlight = document.getElementById('spotlight');
         window.addEventListener('mousemove', (e) => {
