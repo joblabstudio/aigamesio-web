@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Gamesio - Портал в разработке</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>AI Gamesio - Игровой Плеер</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <script>
-        // Копируем вашу конфигурацию Tailwind CSS для сохранения дизайна
         tailwind.config = {
             theme: {
                 extend: {
@@ -21,16 +19,14 @@
                             dark: '#0f172a',
                             purple: '#7c3aed',
                             cyan: '#06b6d4',
-                            pink: '#ec4899'
+                            pink: '#ec4899',
+                            surface: '#1e293b'
                         }
                     },
                     fontFamily: {
                         sans: ['Montserrat', 'sans-serif'],
                         mono: ['Roboto Mono', 'monospace'],
-                    },
-                    animation: {
-                        'spin-slow': 'spin 12s linear infinite',
-                    },
+                    }
                 }
             }
         }
@@ -39,44 +35,235 @@
         body {
             background-color: #0f172a;
             color: #f8fafc;
+            overflow: hidden;
         }
         
-        .glass {
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.is-fullscreen aside {
+            transform: translateX(-100%);
+            width: 0 !important;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .game-item {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        .game-item:hover {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .game-item.active {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 10px;
         }
         
-        .text-gradient {
-            background: linear-gradient(to right, #06b6d4, #7c3aed, #ec4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Стили для iframe, чтобы он занимал все место */
+        #gameIframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
         }
     </style>
 </head>
-<body class="antialiased font-sans flex items-center justify-center min-h-screen">
+<body class="antialiased h-screen flex flex-col md:flex-row transition-all duration-500">
 
-    <div class="text-center p-8 max-w-lg mx-auto">
-        <div class="mb-8">
-            <i class="fas fa-cog fa-spin text-6xl text-brand-purple animate-spin"></i>
-        </div>
-
-        <h1 class="text-5xl md:text-6xl font-extrabold tracking-tighter mb-4 leading-none">
-            <span class="text-gradient">Портал</span>
-            <br>
-            <span class="text-white">в разработке</span>
-        </h1>
-        
-        <p class="text-lg text-gray-400 mb-10">
-            Мы скоро запустим галерею игр, созданных с помощью AI. 
-            Пока вы можете вернуться на главную страницу и узнать, как начать зарабатывать.
-        </p>
-        
-        <a href="index.html" class="glass px-10 py-4 rounded-xl text-white font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-3 w-max mx-auto">
-            <i class="fas fa-arrow-left"></i> Вернуться на главную
-        </a>
+    <!-- Фоновое оформление -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-0 w-full h-full bg-[#0f172a]"></div>
     </div>
 
+    <!-- ЛЕВАЯ ПАНЕЛЬ: Список игр -->
+    <aside class="w-full md:w-80 lg:w-96 glass-panel flex flex-col h-full z-20 shadow-2xl relative">
+        <div class="p-6 border-b border-white/10">
+            <a href="index.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition mb-6 group">
+                <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                <span class="text-sm font-medium">Вернуться назад</span>
+            </a>
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-extrabold tracking-tighter">
+                    <span class="text-brand-cyan">AI</span><span class="text-white">GAMES</span>
+                </h1>
+                <span id="gameCounter" class="px-2 py-1 bg-brand-purple/20 text-brand-purple text-[10px] font-bold rounded-md border border-brand-purple/30">0 ИГР</span>
+            </div>
+            
+            <div class="relative">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                <input 
+                    type="text" 
+                    id="searchGames" 
+                    placeholder="Поиск по названию..." 
+                    class="w-full bg-black/20 border border-white/5 rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-brand-cyan/50 transition-colors"
+                >
+            </div>
+        </div>
+
+        <div id="gameList" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-2">
+            <!-- Сюда JS вставит список игр -->
+        </div>
+    </aside>
+
+    <!-- ПРАВАЯ ЧАСТЬ: Игровой контейнер -->
+    <main class="flex-1 relative flex flex-col h-full bg-[#050505] z-10">
+        
+        <!-- Верхняя панель управления -->
+        <div class="h-16 border-b border-white/10 flex items-center justify-between px-6 bg-brand-surface/50 backdrop-blur-md z-30">
+            <div class="flex items-center gap-4">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-brand-cyan font-bold uppercase tracking-widest text-opacity-70">Текущая игра</span>
+                    <h2 id="activeGameTitle" class="font-bold text-white text-lg tracking-tight leading-tight">Ожидание выбора...</h2>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="hidden sm:flex items-center gap-2 mr-4 px-3 py-1 bg-white/5 rounded-full border border-white/5">
+                    <i class="fas fa-clock text-[10px] text-gray-500"></i>
+                    <span id="sessionTimer" class="text-[10px] font-mono text-gray-400">00:00</span>
+                </div>
+                <button onclick="reloadGame()" class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 rounded-xl transition-all">
+                    <i class="fas fa-sync-alt text-sm"></i>
+                </button>
+                <button onclick="toggleFullscreen()" id="fsBtn" class="w-10 h-10 flex items-center justify-center text-brand-cyan hover:text-white bg-brand-cyan/10 hover:bg-brand-cyan rounded-xl transition-all">
+                    <i class="fas fa-expand-alt text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Контейнер для IFRAME -->
+        <div id="gameWrapper" class="flex-1 relative w-full h-full overflow-hidden">
+            <iframe 
+                id="gameIframe" 
+                src="about:blank"
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms"
+                allow="autoplay; fullscreen; pointer-lock"
+                style="display: none;"
+            ></iframe>
+            
+            <div id="emptyState" class="absolute inset-0 flex flex-col items-center justify-center text-center p-8 z-20 bg-[#050505]">
+                <div class="relative mb-6">
+                    <div class="absolute inset-0 bg-brand-purple blur-3xl opacity-20"></div>
+                    <i class="fas fa-gamepad text-7xl text-white/10 relative"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Выберите проект</h3>
+                <p class="text-gray-500 max-w-xs text-sm">Игры загружаются через безопасный iframe по внешним ссылкам.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // База данных теперь содержит ссылки (URL) вместо кода
+        const gamesDB = [
+            {
+                title: "RIO Kingdom 2",
+                url: "https://falconline.net/_games_/Html5/RIOKingdom2/index.html"
+            },
+        ];
+
+        const gameListEl = document.getElementById('gameList');
+        const activeTitle = document.getElementById('activeGameTitle');
+        const emptyState = document.getElementById('emptyState');
+        const gameIframe = document.getElementById('gameIframe');
+        const counterEl = document.getElementById('gameCounter');
+        const searchInput = document.getElementById('searchGames');
+        const timerEl = document.getElementById('sessionTimer');
+        const fsBtn = document.getElementById('fsBtn');
+        
+        let currentIndex = -1;
+        let sessionSeconds = 0;
+
+        // Таймер сессии
+        setInterval(() => {
+            if(currentIndex !== -1) {
+                sessionSeconds++;
+                const m = Math.floor(sessionSeconds / 60).toString().padStart(2, '0');
+                const s = (sessionSeconds % 60).toString().padStart(2, '0');
+                timerEl.innerText = `${m}:${s}`;
+            }
+        }, 1000);
+
+        function renderList(filter = '') {
+            gameListEl.innerHTML = '';
+            const filtered = gamesDB.filter(g => g.title.toLowerCase().includes(filter.toLowerCase()));
+            counterEl.innerText = `${gamesDB.length} ИГР`;
+
+            filtered.forEach((game, index) => {
+                const originalIndex = gamesDB.indexOf(game);
+                const div = document.createElement('div');
+                div.className = `game-item p-4 rounded-xl cursor-pointer flex items-center justify-between ${originalIndex === currentIndex ? 'active' : ''}`;
+                div.onclick = () => loadGame(originalIndex);
+                
+                div.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full ${originalIndex === currentIndex ? 'bg-brand-cyan animate-pulse' : 'bg-white/10'}"></div>
+                        <h3 class="text-white font-bold text-sm tracking-tight">${game.title}</h3>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] text-gray-600"></i>
+                `;
+                gameListEl.appendChild(div);
+            });
+        }
+
+        function loadGame(index) {
+            currentIndex = index;
+            const game = gamesDB[index];
+            
+            renderList(searchInput.value);
+            activeTitle.innerText = game.title;
+            emptyState.style.display = 'none';
+            sessionSeconds = 0; 
+            
+            // Устанавливаем URL в iframe
+            gameIframe.style.display = 'block';
+            gameIframe.src = game.url;
+        }
+
+        function reloadGame() {
+            if(currentIndex !== -1) {
+                const currentSrc = gameIframe.src;
+                gameIframe.src = 'about:blank';
+                setTimeout(() => {
+                    gameIframe.src = currentSrc;
+                }, 50);
+            }
+        }
+
+        function toggleFullscreen() {
+            const body = document.body;
+            const isNowFullscreen = body.classList.toggle('is-fullscreen');
+            
+            const icon = fsBtn.querySelector('i');
+            if (isNowFullscreen) {
+                icon.className = 'fas fa-compress-alt text-sm';
+                fsBtn.title = 'Вернуть панель';
+            } else {
+                icon.className = 'fas fa-expand-alt text-sm';
+                fsBtn.title = 'Развернуть';
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => renderList(e.target.value));
+
+        renderList();
+    </script>
 </body>
 </html>
