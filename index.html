@@ -140,6 +140,7 @@
                 <div class="flex-shrink-0 font-bold text-2xl tracking-wider">
                     <a href="index.html"><span class="text-brand-cyan">AI</span> <span class="text-white">Gamesio</span></a>
                 </div>
+
                 <div class="hidden md:block">
                     <div class="flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-gray-400">
                         <a href="#benefits" class="hover:text-white transition">Преимущества</a>
@@ -147,6 +148,23 @@
                         <a href="#examples" class="hover:text-white transition text-brand-cyan">Портал онлайн игр</a>
                     </div>
                 </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white transition p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-purple">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-sm font-bold uppercase tracking-widest text-gray-400">
+                <a href="#benefits" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 hover:text-white transition">Преимущества</a>
+                <a href="#faq" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 hover:text-white transition">FAQ</a>
+                <a href="#examples" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 text-brand-cyan transition">Портал онлайн игр</a>
+                <a href="https://t.me/aigameesio?direct" target="_blank" onclick="closeMobileMenu()" class="block text-center mt-3 bg-brand-purple hover:bg-brand-purple/80 text-white px-3 py-2 rounded-xl font-bold transition-all text-sm">
+                    <i class="fab fa-telegram-plane"></i> Начать зарабатывать
+                </a>
             </div>
         </div>
     </nav>
@@ -202,6 +220,11 @@
             </div>
         </div>
     </section>
+
+    <!-- Кнопка подняться навверх -->
+    <button id="scrollToTopBtn" class="fixed bottom-6 right-6 z-50 p-4 rounded-full glass opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 hover:bg-white/10 hover:shadow-2xl hover:shadow-brand-purple/20">
+        <i class="fas fa-chevron-up text-xl text-brand-purple"></i>
+    </button>
 
     <!-- Блок с преимуществами> -->
     <section id="benefits" class="py-24 relative z-10 border-y border-white/5 bg-brand-dark/30">
@@ -326,6 +349,62 @@
                     <div class="faq-answer text-gray-400 text-sm">
                         Количество не ограничено! Вы можете создавать и отправлять столько игр, сколько успеете. Главное - чтобы каждая игра была уникальной и соответствовала нашим техническим требованиям.
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок с наличием портала онлайн игр -->
+    <section id="examples" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-dark/50 p-8 md:p-12 rounded-3xl border border-brand-purple/20 shadow-xl shadow-brand-purple/10 reveal delay-200">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div class="text-left">
+                        <span class="text-xs font-mono uppercase tracking-widest text-brand-cyan mb-3 block">
+                            Примеры работ AI-разработчиков
+                        </span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 leading-tight tracking-tighter">
+                            Наш <span class="text-gradient">Портал ИИ-Игр</span>
+                        </h2>
+                        <p class="text-gray-400 text-base md:text-lg mb-8 leading-relaxed">
+                            Убедитесь сами, как легко нейросети превращают промпты в играбельные HTML5-проекты. Каждая игра здесь создана и монетизирована нашими исполнителями.
+                        </p>
+                        <a href="online.html" class="relative group overflow-hidden px-8 py-3 rounded-xl text-white font-bold transition-all duration-500 hover:scale-[1.05] shadow-lg shadow-brand-purple/20 border border-transparent bg-brand-dark/50 hover:bg-brand-dark/30 flex items-center justify-center gap-3">
+                            <span class="absolute inset-0 w-full h-full border border-transparent rounded-xl transition-all duration-300 group-hover:border-brand-cyan/50 group-hover:border-b-brand-purple"></span>
+
+                            <div class="flex items-center gap-3 relative z-10">
+                                <i class="fas fa-gamepad text-xl text-brand-cyan transition-transform duration-300 group-hover:rotate-6"></i> 
+                                <span>Перейти в Онлайн Портал</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="relative reveal delay-300">
+                        <ul class="space-y-6 text-left">
+                            <li class="flex items-start gap-4">
+                                <i class="fas fa-check-circle text-2xl text-brand-cyan mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Ежедневное пополнение</h4>
+                                    <p class="text-gray-400 text-sm">Новые гипер-казуальные игры появляются на портале каждый день.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="fas fa-desktop text-2xl text-brand-purple mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Полный HTML5/JS</h4>
+                                    <p class="text-gray-400 text-sm">Все проекты полностью рабочие и сгенерированы ИИ, что подтверждает наш подход.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i class="fas fa-chart-bar text-2xl text-brand-pink mt-1 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-bold text-white text-lg">Потенциал монетизации</h4>
+                                    <p class="text-gray-400 text-sm">Лучшие примеры, которые успешно прошли проверку и выкуплены издателем.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -538,6 +617,16 @@
             document.body.style.overflow = '';
         }
 
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
+        }
+
         function toggleFaq(el) {
             el.classList.toggle('active');
         }
@@ -549,7 +638,29 @@
             spotlight.style.setProperty('--x', `${x}px`);
             spotlight.style.setProperty('--y', `${y}px`);
         });
+
+        // Логика кнопки "Наверх"
+        const scrollBtn = document.getElementById('scrollToTopBtn');
+
+        const scrollFunction = () => {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                scrollBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            } else {
+                scrollBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                scrollBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }
+        };
+
+        const topFunction = () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+
+        window.onscroll = function() { scrollFunction() };
+        scrollBtn.addEventListener('click', topFunction);
     </script>
 </body>
 </html>
-
