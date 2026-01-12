@@ -134,40 +134,50 @@
     </div>
 
     <!-- Шапка -->
-    <nav class="fixed w-full z-50 glass border-b-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0 font-bold text-2xl tracking-wider">
-                    <a href="index.html"><span class="text-brand-cyan">AI</span> <span class="text-white">Gamesio</span></a>
-                </div>
-
-                <div class="hidden md:block">
-                    <div class="flex items-center gap-8 text-sm font-bold uppercase tracking-widest text-gray-400">
-                        <a href="#benefits" class="hover:text-white transition">Преимущества</a>
-                        <a href="#faq" class="hover:text-white transition">FAQ</a>
-                        <a href="#examples" class="hover:text-white transition text-brand-cyan">Портал онлайн игр</a>
-                    </div>
-                </div>
-
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white transition p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-purple">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="md:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-sm font-bold uppercase tracking-widest text-gray-400">
-                <a href="#benefits" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 hover:text-white transition">Преимущества</a>
-                <a href="#faq" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 hover:text-white transition">FAQ</a>
-                <a href="#examples" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-md hover:bg-white/10 text-brand-cyan transition">Портал онлайн игр</a>
-                <a href="https://t.me/aigameesio?direct" target="_blank" onclick="closeMobileMenu()" class="block text-center mt-3 bg-brand-purple hover:bg-brand-purple/80 text-white px-3 py-2 rounded-xl font-bold transition-all text-sm">
-                    <i class="fab fa-telegram-plane"></i> Начать зарабатывать
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-lg border-b border-gray-700/50 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            
+            <div class="flex-shrink-0 font-extrabold text-3xl tracking-wider">
+                <a href="index.html" class="group transition-all duration-300">
+                    <span class="text-brand-cyan transition-colors duration-300 group-hover:text-cyan-400">AI</span> 
+                    <span class="text-white transition-colors duration-300 group-hover:text-gray-300">Gamesio</span>
+                    <i class="fas fa-gamepad text-xl ml-2 text-brand-cyan opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
                 </a>
             </div>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <div class="flex items-center gap-6 text-sm font-bold uppercase tracking-widest text-gray-400">
+                    <a href="#benefits" class="hover:text-white transition-colors duration-200">Преимущества</a>
+                    <a href="#faq" class="hover:text-white transition-colors duration-200">FAQ</a>
+                    <a href="online.html" target="_blank" class="text-brand-cyan hover:text-cyan-400 transition-colors duration-200 border-b-2 border-brand-cyan pb-1">Портал онлайн игр</a>
+                </div>
+
+                <a href="https://t.me/aigameesio?direct" target="_blank" class="bg-gradient-to-r from-brand-cyan to-brand-purple hover:from-cyan-400 hover:to-purple-500 text-white px-5 py-2 rounded-full font-extrabold shadow-lg shadow-brand-purple/50 transition-all duration-300 transform hover:scale-105 text-sm uppercase tracking-wider">
+                    <i class="fab fa-telegram-plane mr-2"></i> Начать зарабатывать
+                </a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white transition p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-cyan/50" aria-label="Toggle menu">
+                    <i id="menu-icon" class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
         </div>
-    </nav>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden bg-black/90 backdrop-blur-sm border-t border-gray-700/50">
+        <div class="px-2 pt-2 pb-4 space-y-2 sm:px-3 text-sm font-bold uppercase tracking-widest text-gray-300">
+            <a href="#benefits" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 hover:text-white transition">Преимущества</a>
+            <a href="#faq" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 hover:text-white transition">FAQ</a>
+            <a href="online.html" target="_blank" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-brand-cyan hover:bg-white/10 transition">Портал онлайн игр</a>
+            
+            <a href="https://t.me/aigameesio?direct" target="_blank" onclick="closeMobileMenu()" class="block text-center mt-4 bg-gradient-to-r from-brand-cyan to-brand-purple hover:from-cyan-400 hover:to-purple-500 text-white px-3 py-3 rounded-xl font-extrabold transition-all duration-300 text-sm shadow-md shadow-brand-purple/50">
+                <i class="fab fa-telegram-plane"></i> Начать зарабатывать
+            </a>
+        </div>
+    </div>
+</nav>
 
     <!-- Начальный блок -->
     <section class="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden hero-grid">
@@ -459,143 +469,39 @@
         </div>
     </footer>
 
-    <!-- Политика выплат модальное окно -->
     <div id="policyModal" class="fixed inset-0 z-[100] hidden">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-4">
-            <div class="bg-[#1e293b] border border-gray-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
-                <div class="p-5 border-b border-gray-700 flex justify-between items-center bg-[#1e293b] sticky top-0 z-10">
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">ПОЛИТИКА СОТРУДНИЧЕСТВА И ВЫПЛАТ</h3>
-                        <p class="text-xs text-brand-purple mt-1">Версия 1.3 (Обновлено: Сроки оплаты, Проверка качества, Тарификация)</p>
-                    </div>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-white transition bg-white/5 rounded-full p-2 w-8 h-8 flex items-center justify-center hover:bg-white/10">
-                        <i class="fas fa-times"></i>
-                    </button>
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+    
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl px-4">
+        <div class="bg-[#1e293b] border border-gray-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[90vh]">
+            
+            <div class="p-5 border-b border-gray-700 flex justify-between items-center bg-[#1e293b] sticky top-0 z-10 shrink-0">
+                <div>
+                    <h3 class="text-xl font-bold text-white tracking-wide">ПОЛИТИКА СОТРУДНИЧЕСТВА И ВЫПЛАТ</h3>
+                    <p class="text-xs text-brand-purple mt-1">Актуальная версия из Google Документа</p> 
                 </div>
-                
-                <div class="p-6 overflow-y-auto modal-scroll text-gray-300 leading-relaxed text-sm space-y-6">
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">1. Форматы работы и Тарификация</h4>
-                        <p class="text-gray-400 mb-3 text-xs"><em>Обратите внимание: указанные ниже ставки являются текущими и могут быть пересмотрены Организатором. Актуальные ставки всегда будут опубликованы в последней версии этого документа.</em></p>
-                        <div class="grid gap-3">
-                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
-                                <div class="flex justify-between items-start mb-2">
-                                    <strong class="text-white text-base">Тариф А: Игра низкого качества (Без сборки)</strong>
-                                    <span class="bg-gray-700 text-white px-2 py-0.5 rounded text-xs">200 ₽</span>
-                                </div>
-                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                                    <li>Разработчик: генерирует игру, проверяет работоспособность, отправляет файлы.</li>
-                                    <li>Сборку делает Организатор.</li>
-                                </ul>
-                            </div>
-                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
-                                <div class="flex justify-between items-start mb-2">
-                                    <strong class="text-white text-base">Тариф Б: Игра высокого качества (Без сборки)</strong>
-                                    <span class="bg-brand-purple/20 text-brand-purple border border-brand-purple/30 px-2 py-0.5 rounded text-xs">400 ₽</span>
-                                </div>
-                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                                    <li>Разработчик: генерирует качественную игру, проверяет работоспособность, отправляет файлы.</li>
-                                    <li>Сборку делает Организатор.</li>
-                                </ul>
-                            </div>
-                            <div class="bg-black/20 p-4 rounded-lg border border-white/5">
-                                <div class="flex justify-between items-start mb-2">
-                                    <strong class="text-white text-base">Тариф В: Игра низкого качества (Со сборкой)</strong>
-                                    <span class="bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/30 px-2 py-0.5 rounded text-xs">500 ₽</span>
-                                </div>
-                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                                    <li>Разработчик: генерирует игру и производит полную сборку по техническому регламенту.</li>
-                                </ul>
-                            </div>
-                            <div class="bg-gradient-to-r from-brand-purple/10 to-brand-pink/10 p-4 rounded-lg border border-brand-purple/30">
-                                <div class="flex justify-between items-start mb-2">
-                                    <strong class="text-white text-base">Тариф Г: Игра высокого качества (Со сборкой)</strong>
-                                    <span class="bg-brand-pink text-white px-2 py-0.5 rounded text-xs font-bold">700 ₽</span>
-                                </div>
-                                <ul class="list-disc list-inside text-xs text-gray-400 space-y-1">
-                                    <li>Разработчик: генерирует качественную игру и производит полную сборку по техническому регламенту.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition bg-white/5 rounded-full p-2 w-8 h-8 flex items-center justify-center hover:bg-white/10">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 bg-white overflow-hidden relative"> 
+                <iframe
+                    src="https://docs.google.com/document/d/e/2PACX-1vS2JiBr4LLSru1n-6VES9WWaYrqyxALae9SGdgJoyyWNpFAqhCWomuJhHlsU5TsO8r9MMfPLkrNm8aH/pub?embedded=true"
+                    class="absolute inset-0 w-full h-full border-0"
+                    frameborder="0"
+                    allowfullscreen="true"
+                ></iframe>
+            </div>
 
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">2. Критерии Приемки Игры и Контент-Политика</h4>
-                        <div class="bg-red-500/10 border border-red-500/20 p-4 rounded-lg mb-3">
-                            <strong class="text-red-400 block mb-2"><i class="fas fa-ban mr-2"></i>Контент-Политика (Safety) — ЗАПРЕЩЕНО:</strong>
-                            <ul class="list-disc list-inside space-y-1 text-gray-300 text-xs">
-                                <li>Кровавые сцены или расчленение.</li>
-                                <li>Сексуальный контент для взрослых (18+).</li>
-                                <li>Нецензурная лексика, мат и оскорбления.</li>
-                                <li>Пропаганда запрещенных веществ или незаконной деятельности.</li>
-                            </ul>
-                        </div>
-                        <div class="bg-blue-500/10 border border-blue-500/20 p-4 rounded-lg mb-3">
-                            <strong class="text-blue-400 block mb-2"><i class="fas fa-cogs mr-2"></i>Технические Требования:</strong>
-                            <ul class="list-disc list-inside space-y-1 text-gray-300 text-xs">
-                                <li>Игра должна быть полностью работоспособной на движке <strong>HTML5</strong>.</li>
-                                <li>Игра должна быть полностью играбельной (без зависаний, рабочие кнопки).</li>
-                            </ul>
-                        </div>
-                        <p class="mt-3"><strong>Язык:</strong> Весь игровой текст, включая интерфейс, заголовки и названия, должен быть выполнен строго на <span class="text-brand-cyan">Английском языке</span>.</p>
-                    </div>
-
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">3. Порядок приемки и Риски (Важно)</h4>
-                        <ul class="space-y-3">
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-clipboard-check text-yellow-500 mt-1"></i>
-                                <span><strong>Проверка качества:</strong> Организатор определяет категорию качества (низкое/высокое) на свое усмотрение и может вернуть игру на доработку.</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
-                                <span><strong>Условие выплаты:</strong> Оплата производится <strong>только</strong> в случае успешной продажи игры Издателю. Статистика: Издатель выкупает примерно 9 из 10 игр. Если игра отклонена Издателем, оплата не производится.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">4. Сроки оплаты</h4>
-                        <ul class="space-y-2 text-gray-300">
-                            <li><strong>Стандартный срок:</strong> В течение <u>2-х месяцев</u> с момента приемки игры Издателем.</li>
-                            <li><strong>Особенности:</strong> Игры низкого качества могут иметь более длительный срок ожидания и повышенный риск невыкупа (в этом случае оплата не производится).</li>
-                            <li>Оплата переводится на карту или иным согласованным способом.</li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 class="text-lg font-bold text-brand-cyan mb-3 border-l-4 border-brand-cyan pl-3">5. Авторские права и Конфиденциальность</h4>
-                        <ul class="space-y-3 text-gray-300 text-xs">
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-gavel text-purple-500 mt-1"></i>
-                                <span><strong>Отчуждение прав:</strong> В момент передачи файлов все исключительные авторские и смежные права на контент переходят к Организатору в полном объеме.</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-lock text-red-500 mt-1"></i>
-                                <span><strong>Запрет на использование:</strong> После передачи Разработчик не имеет права продавать игру третьим лицам, выкладывать в открытый доступ или портфолио без разрешения, использовать код/ассеты в других проектах.</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <i class="fas fa-certificate text-green-500 mt-1"></i>
-                                <span><strong>Гарантия уникальности:</strong> Разработчик гарантирует, что игра является новой генерацией и ранее не была продана.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-lg">
-                        <h4 class="text-lg font-bold text-yellow-400 mb-2 border-l-4 border-yellow-400 pl-3">6. Согласие с правилами</h4>
-                        <p class="text-gray-300 text-xs">Факт отправки файлов с игрой или сборкой означает, что вы внимательно ознакомились с данным документом, полностью согласны с тарифами, рисками невыплаты (в случае отказа Издателя) и передачей авторских прав.</p>
-                    </div>
-
-                </div>
-                <div class="p-4 border-t border-gray-700 bg-[#0f172a] flex justify-end">
-                    <button onclick="closeModal()" class="bg-brand-purple hover:bg-brand-purple/80 text-white px-6 py-2 rounded transition font-medium">
-                        Я ознакомился и согласен
-                    </button>
-                </div>
+            <div class="p-4 border-t border-gray-700 bg-[#0f172a] flex justify-end shrink-0">
+                <button onclick="closeModal()" class="bg-brand-purple hover:bg-brand-purple/80 text-white px-6 py-2 rounded transition font-medium">
+                    Я ознакомился и согласен
+                </button>
             </div>
         </div>
     </div>
+</div> 
 
     <script>
         const observerOptions = { threshold: 0.1 };
@@ -664,3 +570,4 @@
     </script>
 </body>
 </html>
+
